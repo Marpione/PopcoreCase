@@ -248,4 +248,19 @@ public class BubbleGenerator : Singleton<BubbleGenerator>
         }
         return highestBubble;
     }
+
+    public List<Bubble> GetNeighbors(Vector2 pos)
+    {
+        List<Bubble> neighbors = new List<Bubble>();
+
+        for (int i = 0; i < BubblesInScene.Count; i++)
+        {
+            if (Vector2.Distance(BubblesInScene[i].transform.position, pos) <= BubbleWidht * 1.2f)
+            {
+                if(!neighbors.Contains(BubblesInScene[i]))
+                    neighbors.Add(BubblesInScene[i]);
+            }
+        }
+        return neighbors;
+    }
 }

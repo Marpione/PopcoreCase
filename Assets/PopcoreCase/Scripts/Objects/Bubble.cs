@@ -51,13 +51,19 @@ public class Bubble : MonoBehaviour
     public void CheckNeighbors()
     {
         connectedBubbles.Clear();
+
+        //This is an optimized solution
+        //There is a bug here and I don't have time to fix it anymore. Just wanted to show an other way.
+        //connectedBubbles = new List<Bubble>(BubbleGenerator.Instance.GetNeighbors(transform.position));
+
+
         //This is not optimized since we call this method on multiple objects very often but this is the fastes and most optimal solution for this case.
         Collider2D[] collidersInRange = Physics2D.OverlapCircleAll(transform.position, BubbleGenerator.Instance.BubbleWidht * 1.2f);
 
         foreach (var col in collidersInRange)
         {
             Bubble bubble = col.GetComponent<Bubble>();
-            if(bubble)
+            if (bubble)
             {
                 bubble.lastContactDir = transform.position - bubble.transform.position;
                 AddNeighbor(bubble);
